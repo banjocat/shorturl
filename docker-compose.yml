@@ -1,0 +1,26 @@
+version: '3'
+services:
+  postgres:
+    network_mode: host
+    image: postgres:11
+    environment:
+      POSTGRES_USER: walter
+      POSTGRES_PASSWORD: walter
+      POSTGRES_DB: walter
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./docker_data/pgdata:/var/lib/postgresql/data"
+  redis:
+    network_mode: host
+    image: redis:5
+    ports:
+      - "6379:6379"
+  redis-commander:
+    network_mode: host
+    image: rediscommander/redis-commander:latest
+    environment:
+      REDIS_HOST: 127.0.0.1
+      ADDRESS: 127.0.0.1
+      PORT: 9001
+
