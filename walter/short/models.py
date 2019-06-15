@@ -15,7 +15,7 @@ def calculate_endpoint(url_id):
     return result
 
 
-class ShortA(models.Model):
+class ShortUrl(models.Model):
     url = models.URLField()
     url_id = models.AutoField(primary_key=True)
 
@@ -29,7 +29,7 @@ class ShortA(models.Model):
             models.constraints.UniqueConstraint(fields=['url'], name='unique_url')
         ]
 
-        db_table = 'short_a'
+        db_table = 'short_url'
 
 
 
