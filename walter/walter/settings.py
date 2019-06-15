@@ -101,7 +101,7 @@ CACHES = {
     },
     "short": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/66",
+        "LOCATION": "redis://127.0.0.1:6379/3",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -127,6 +127,37 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': 'level={levelname} timestamp="{asctime}" module={module} {message}',
+            'style': '{'
+        },
+        'debug': {
+            'format': '{message}',
+            'style': '{'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
+        'debug': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'debug',
+        }
+    },
+    'loggers': {
+        'short.sync_redis': {
+            'level': 'DEBUG',
+            'handlers': ['debug'],
+        },
+    },
+}
 
 
 # Internationalization
