@@ -1,7 +1,9 @@
 from django.urls import path
+from django.views.generic import TemplateView
 
 from short.api.views import ShortUrlView
 
 urlpatterns = [
-    path('', ShortUrlView.as_view())
+    path('api/short', ShortUrlView.as_view()),
+    path('', TemplateView.as_view(template_name='short/index.html'))
 ]
