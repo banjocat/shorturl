@@ -27,7 +27,7 @@
       url: {* displayUrl *}
   </p>
   <p v-if="short != ''" class="lead">
-    short: {* domain *}{* short *}
+    short: <a v-bind:href="fullUrl">{* domain *}{* short *}</a>
   </p>
 </div>
 
@@ -48,6 +48,7 @@ var vm = new Vue({
       displayUrl: '',
       domain: '',
       errorMessage: '',
+      fullUrl: '',
     },
     methods: {
         getShort: function(event) {
@@ -63,6 +64,7 @@ var vm = new Vue({
             this.displayUrl = this.url
             this.short = response.data.endpoint;
             this.domain = "https://brief.pd/";
+            this.fullUrl = this.domain + this.short;
           })
           .catch((error) => {
             if (error.response) {
