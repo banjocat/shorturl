@@ -1,4 +1,4 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.serializers import ModelSerializer
 
 from short.models import ShortUrl
@@ -18,10 +18,7 @@ class ShortUrlSerializer(ModelSerializer):
         fields = ['url', 'endpoint']
 
 
-class ShortUrlView(ListCreateAPIView):
+class ShortUrlView(CreateAPIView):
     queryset = ShortUrl.objects.all()
     serializer_class = ShortUrlSerializer
-
-
-
 

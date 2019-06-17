@@ -1,7 +1,7 @@
 from django.db import models
 
-
-base_html = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;="
+# Valid path chars used to convert to decimal to base_html
+base_html = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?[]@!$&'()*+,;="
 
 
 def calculate_endpoint(url_id):
@@ -16,12 +16,15 @@ def calculate_endpoint(url_id):
 
 
 class ShortUrl(models.Model):
-    url = models.URLField()
+    url = models.URLField(max_length=40000)
     url_id = models.AutoField(primary_key=True)
 
     @property
     def endpoint(self):
         return calculate_endpoint(self.url_id)
+
+    def __str__(self):
+        return f'{self.endpoint} {self.url}'
 
     class Meta:
 
@@ -30,9 +33,4 @@ class ShortUrl(models.Model):
         ]
 
         db_table = 'short_url'
-
-
-
-
-
 

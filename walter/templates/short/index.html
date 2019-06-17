@@ -4,25 +4,30 @@
   <meta charset="UTF-8">
   <title>Need a better title</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    [v-cloak] { display: none; }
+  </style>
 </head>
 <body>
 
 <div class="container">
   <h1>A URL Shortener</h1>
 </div>
-<div class="container" id="short">
-
+<div v-cloak class="container mt-4" id="short">
   <div class="form-group">
-    <label for="url">Url to Short</label>
-    <input type="text" v-model="fullUrl" v-on:keyup.enter="getShort()" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter full url">
-    <small id="emailHelp" class="form-text text-muted">example: https://google.com/this/will/get/shorter</small>
+    <label for="url">URL to Short</label>
+    <input type="text" v-model="url" v-on:keyup.enter="getShort()" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter full url">
+    <small id="urlHelp" class="form-text text-muted">example: https://google.com/this/will/get/shorter</small>
   </div>
   <button v-on:click="getShort()" class="btn btn-primary">Submit</button>
-  <p class="lead pt-5">
-      {{ fullUrl }}
+  <div v-if="errorMessage != ''" class="alert alert-primary mt-3" role="alert">
+    {* errorMessage *}
+  </div>
+  <p v-if="displayUrl != ''" class="lead pt-5">
+      url: {* displayUrl *}
   </p>
-  <p class="lead">
-    {{ domain }}{{ short }}
+  <p v-if="short != ''" class="lead">
+    short: {* domain *}{* short *}
   </p>
 </div>
 
@@ -36,24 +41,44 @@
 <script>
 var vm = new Vue({
     el: '#short',
+    delimiters: ['{*', '*}'],
     data: {
-      fullUrl: '',
+      url: '',
       short: '',
+      displayUrl: '',
       domain: '',
+      errorMessage: '',
     },
     methods: {
         getShort: function(event) {
+          if (this.url == '') {
+            return;
+          }
           axios.post('/api/v1/short', {
-            url: this.fullUrl
+            url: this.url
           })
-          .then(function (response) {
-            console.log(response);
+          .then((response) => {
+            console.log(response.data);
+            this.errorMessage = "";
+            this.displayUrl = this.url
             this.short = response.data.endpoint;
             this.domain = "https://brief.pd/";
-            console.log(this.domain + this.short);
           })
-          .catch(function (error) {
-            console.log(error);
+          .catch((error) => {
+            if (error.response) {
+              console.log(error.response.data);
+              if (error.response.status == 400) {
+                this.errorMessage = "Invalid URL. Must be in the form of http://example.com";
+              } else if (error.response.status == 403) {
+                this.errorMessage = "Unauthorized."
+              } else {
+                this.errorMessage = "Ruh roh! Something broke."
+              }
+            } else if (error.request) {
+              this.errorMessage = "Uh oh. It's down!";
+            } else {
+              this.errorMessage = error.message;
+            }
           });
         }
     }

@@ -13,9 +13,9 @@ class ShortTestCase(TestCase):
         self.assertEqual(calculate_endpoint(26), 'a')
 
     def test_larger(self):
-        self.assertEqual(calculate_endpoint(134), 'By')
-        self.assertEqual(calculate_endpoint(1023041), 'B8=F')
-        self.assertEqual(calculate_endpoint(102304113112), 'Ym#-Uo')
+        self.assertEqual(calculate_endpoint(134), 'Bz')
+        self.assertEqual(calculate_endpoint(1023041), 'B~p:')
+        self.assertEqual(calculate_endpoint(102304113112), 'Z,2,tE')
 
     def test_create(self):
         factory = APIRequestFactory()
