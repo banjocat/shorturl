@@ -1,6 +1,8 @@
 from django.test import TestCase
+from rest_framework.test import APIRequestFactory
 
 from .models import calculate_endpoint
+from .api.views import ShortUrlView
 
 
 class ShortTestCase(TestCase):
@@ -14,4 +16,17 @@ class ShortTestCase(TestCase):
         self.assertEqual(calculate_endpoint(134), 'By')
         self.assertEqual(calculate_endpoint(1023041), 'B8=F')
         self.assertEqual(calculate_endpoint(102304113112), 'Ym#-Uo')
+
+    def test_create(self):
+        factory = APIRequestFactory()
+        request = factory.post('/api/v1/short', {'url': "http://jackmuratore.com"}, format='json')
+        response = ShortUrlView.as_view()(request)
+        self.assertEqual(response.data['url'], 'http://jackmuratore.com')
+        self.assertEqual(response.data['endpoint'], 'B')
+        request = factory.post('/api/v1/short', {'url': "http://jackmuratore.com"}, format='json')
+        response = ShortUrlView.as_view()(request)
+        self.assertEqual(response.data['url'], 'http://jackmuratore.com')
+        self.assertEqual(response.data['endpoint'], 'B')
+
+
 

@@ -6,6 +6,13 @@ from short.models import ShortUrl
 
 class ShortUrlSerializer(ModelSerializer):
 
+    def create(self, validated_data):
+        try:
+            instance = ShortUrl.objects.get(url=validated_data['url'])
+            return instance
+        except ShortUrl.DoesNotExist:
+            return super().create(validated_data)
+
     class Meta:
         model = ShortUrl
         fields = ['url', 'endpoint']
@@ -14,5 +21,7 @@ class ShortUrlSerializer(ModelSerializer):
 class ShortUrlView(ListCreateAPIView):
     queryset = ShortUrl.objects.all()
     serializer_class = ShortUrlSerializer
+
+
 
 

@@ -10,20 +10,53 @@
 <div class="container">
   <h1>A URL Shortener</h1>
 </div>
-<div class="container">
+<div class="container" id="short">
 
-  <form>
-    <div class="form-group">
-      <label for="url">Url to Short</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter full url">
-      <small id="emailHelp" class="form-text text-muted">example: https://google.com/this/will/get/shorter</small>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  <div class="form-group">
+    <label for="url">Url to Short</label>
+    <input type="text" v-model="fullUrl" v-on:keyup.enter="getShort()" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter full url">
+    <small id="emailHelp" class="form-text text-muted">example: https://google.com/this/will/get/shorter</small>
+  </div>
+  <button v-on:click="getShort()" class="btn btn-primary">Submit</button>
+  <p class="lead pt-5">
+      {{ fullUrl }}
+  </p>
+  <p class="lead">
+    {{ domain }}{{ short }}
+  </p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </body>
+<script>
+var vm = new Vue({
+    el: '#short',
+    data: {
+      fullUrl: '',
+      short: '',
+      domain: '',
+    },
+    methods: {
+        getShort: function(event) {
+          axios.post('/api/v1/short', {
+            url: this.fullUrl
+          })
+          .then(function (response) {
+            console.log(response);
+            this.short = response.data.endpoint;
+            this.domain = "https://brief.pd/";
+            console.log(this.domain + this.short);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }
+    }
+});
+</script>
 </html>
