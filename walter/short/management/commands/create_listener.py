@@ -20,14 +20,19 @@ class Command(BaseCommand):
         for notification in await_pg_notifications(
                 f"postgresql://{db['USER']}:{db['PASSWORD']}@{db['HOST']}:{db['PORT']}/{db['NAME']}",
                 ['short_url_created']):
-            payload = json.loads(notification.payload)
+            try:
+                payload = json.loads(notification.payload)
+            except json.JSONDecodeError as e:
+                log.error(e)
+                continue
 
             redis = get_redis_connection("short")
-            if 'url' not in payload or 'endpoint' not in payload:
-                log.error(f'Invalid payload: {payload}')
+            try:
+                redis.set(payload['endpoint'], payload['url'])
+            except KeyError as e:
+                log.error(e)
                 continue
-            redis.set(payload['endpoint'], payload['url'])
-            log.error(f'payload set: {payload}')
+            log.debug(f'payload: {payload}')
 
     def handle(self, *args, **options):
         log.warning("Starting listener")
