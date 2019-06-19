@@ -1,4 +1,10 @@
-from django.db import models
+import logging
+import json
+
+from django.db import models, connection
+from django.db.models.signals import post_save
+
+log = logging.getLogger(__name__)
 
 # Valid path chars used to convert to decimal to base_html
 base_html = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?[]@!$&'()*+,;="
@@ -33,4 +39,24 @@ class ShortUrl(models.Model):
         ]
 
         db_table = 'short_url'
+
+
+def on_create(sender, instance, **kwargs):
+    """
+    This is where the api sends messages to the edge that a new url was made
+    """
+    msg = {
+        "endpoint": instance.endpoint,
+        'url': instance.url,
+    }
+    query = f"NOTIFY short_url_created, '{json.dumps(msg)}';"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+
+    log.error(f'Notify: {msg}')
+
+
+post_save.connect(on_create, sender=ShortUrl)
+
+
 

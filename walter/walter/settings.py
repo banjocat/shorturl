@@ -160,6 +160,10 @@ LOGGING = {
             'level': 'DEBUG',
             'handlers': ['debug'],
         },
+        '': {
+            'level': 'WARN',
+            'handlers': ['debug'],
+        }
     },
 }
 
