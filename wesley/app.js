@@ -24,4 +24,4 @@ http.createServer(function(req, res) {
     res.writeHead(301,{Location: dataJson.url});
     res.end();
   });
-}).listen(8002);
+}).listen(process.env.NODE_PORT || 8002);
