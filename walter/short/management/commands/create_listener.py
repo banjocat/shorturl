@@ -1,5 +1,6 @@
 import json
 import logging
+import maya
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -28,7 +29,16 @@ class Command(BaseCommand):
 
             redis = get_redis_connection("short")
             try:
-                redis.set(payload['endpoint'], payload['url'])
+                with redis.lock('short'):
+                    fetch = redis.get(payload['endpoint'])
+                    timestamp = maya.now().epoch
+                    if fetch and fetch['timestamp'] > timestamp:
+                        continue
+                    data = {
+                        'url': payload['url'],
+                        'timestamp': maya.now().epoch
+                    }
+                    redis.set(payload['endpoint'], json.dumps(data))
             except KeyError as e:
                 log.error(e)
                 continue

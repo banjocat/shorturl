@@ -13,14 +13,15 @@ client.on('error', function (err) {
 
 http.createServer(function(req, res) {
   let path = req.url.slice(1); // remove leading /
-  client.get(path, function(err, url) {
-    if (!url) {
+  client.get(path, function(err, data) {
+    if (!data) {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.write("Not Found");
         res.end();
         return
     }
-    res.writeHead(301,{Location: url});
+    let dataJson = JSON.parse(data);
+    res.writeHead(301,{Location: dataJson.url});
     res.end();
   });
 }).listen(8002);
