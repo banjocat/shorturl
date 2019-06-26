@@ -1,0 +1,10 @@
+- name: Get walter
+  get_url:
+    url: https://github.com/banjocat/shorturl/releases/download/{{ walter_version }}/walter.zip
+    dest: /tmp/{{ walter_version }}-walter.zip
+    username: "{{ lookup('env', 'GITHUB_USER') }}"
+    password: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+
+
+
+
