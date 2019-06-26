@@ -1,6 +1,6 @@
 # https://container-solutions.com/running-docker-containers-with-systemd/
 - name: Add systemd file
-  copy:
+  template:
     src: postgres.service
     dest: /etc/systemd/system/postgres.service
   notify:
