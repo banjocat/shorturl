@@ -1,5 +1,5 @@
 - hosts: data
   gather_facts: yes
   roles:
-    #- walter
+    - walter
     - geerlingguy.nginx

@@ -4,6 +4,7 @@ django-debug-toolbar==1.11
 django-filter==2.1.0
 django-redis==4.10.0
 djangorestframework==3.9.4
+gunicorn==19.9.0
 humanize==0.5.1
 logging-tree==1.8
 logx==0.1.1523254038
