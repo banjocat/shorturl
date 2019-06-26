@@ -1,0 +1,8 @@
+- hosts: data-master,short
+  gather_facts: yes
+  roles:
+    - geerlingguy.docker
+    - role: setup
+      tags: setup
+  
+

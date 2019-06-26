@@ -1,0 +1,5 @@
+- name: restart postgres
+  systemd:
+    name: postgres
+    state: restarted
+  when: postgres_delete != "yes"

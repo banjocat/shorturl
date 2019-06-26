@@ -4,7 +4,10 @@ resource "digitalocean_droplet" "data" {
     image = "ubuntu-18-04-x64"
     region = "nyc3"
     ipv6 = true
-    private_networking = true
+    private_networking = false
+    ssh_keys = [
+        "c9:37:26:2e:b3:7c:f1:56:1f:72:f0:61:98:61:ed:65"
+        ]
     tags = [
         "data"
     ]

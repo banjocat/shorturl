@@ -1,0 +1,4 @@
+- hosts: data
+  gather_facts: yes
+  roles:
+    - postgres

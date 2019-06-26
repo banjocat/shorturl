@@ -1,0 +1,17 @@
+[Unit]
+Description=Postgres Container
+After=docker.service
+Requires=docker.service
+ 
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull postgres:11
+ExecStart=/usr/bin/docker run --rm -v "/var/lib/postgres:/var/lib/postgresql/data" -e "POSTGRES_USER=walter" -e "POSTGRES_DB=walter" -e "POSTGRES_PASSWORD=wesley" --name postgres --net=host postgres:11
+
+ 
+[Install]
+WantedBy=multi-user.target
+

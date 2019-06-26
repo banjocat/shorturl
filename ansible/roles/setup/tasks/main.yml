@@ -1,0 +1,6 @@
+- name: Instal stuf
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - nmap
+

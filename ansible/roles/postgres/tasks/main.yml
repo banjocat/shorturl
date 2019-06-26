@@ -1,0 +1,38 @@
+# https://container-solutions.com/running-docker-containers-with-systemd/
+- name: Add systemd file
+  copy:
+    src: postgres.service
+    dest: /etc/systemd/system/postgres.service
+  notify:
+    restart postgres
+
+- name: Start postgres
+  systemd:
+    daemon_reload: true
+    name: postgres
+    enabled: true
+    state: started
+  when: postgres_delete != "yes"
+
+- name: Stop if delete data
+  systemd:
+    name: postgres
+    state: stopped
+  when: postgres_delete == "yes"
+
+- name: Delete data
+  file:
+    path: /var/lib/postgres
+    state: absent
+  when: postgres_delete == "yes"
+
+- name: Start postgres
+  systemd:
+    daemon_reload: true
+    name: postgres
+    enabled: true
+    state: started
+  when: postgres_delete == "yes"
+
+
+

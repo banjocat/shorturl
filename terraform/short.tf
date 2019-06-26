@@ -5,7 +5,10 @@ resource "digitalocean_droplet" "ny_short" {
     region = "nyc3"
     ipv6 = true
     count = "${var.ny_short_count}"
-    private_networking = true
+    private_networking = false
+    ssh_keys = [
+        "c9:37:26:2e:b3:7c:f1:56:1f:72:f0:61:98:61:ed:65"
+        ]
     tags = [
         "ny_short",
         "short"
@@ -18,14 +21,6 @@ resource "digitalocean_floating_ip" "ny_short" {
     count = "${var.ny_short_count}"
 }
 
-resource "ns1_record" "ny_short" {
-    zone = "${ns1_zone.brief.zone}"
-    domain = "${ns1_zone.brief.zone}"
-    type = "A"
-    answers {
-        answer = "${digitalocean_floating_ip.ny_short.0.ip_address}"
-    }
-}
 
 resource "digitalocean_firewall" "short" {
     name = "short"
@@ -78,3 +73,11 @@ resource "digitalocean_firewall" "short" {
 }
 
 
+resource "ns1_record" "ny_short" {
+    zone = "${ns1_zone.brief.zone}"
+    domain = "${ns1_zone.brief.zone}"
+    type = "A"
+    answers {
+        answer = "${digitalocean_floating_ip.ny_short.0.ip_address}"
+    }
+}

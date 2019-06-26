@@ -1,6 +1,6 @@
 variable "ns1_apikey" {}
 provider "ns1" {
-  apikey = "${var.ns1_apikey}"
+    apikey = "${var.ns1_apikey}"
 }
 
 # Main zones
