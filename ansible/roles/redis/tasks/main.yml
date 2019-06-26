@@ -1,0 +1,27 @@
+# https://container-solutions.com/running-docker-containers-with-systemd/
+- name: Add systemd file
+  copy:
+    src: redis.service
+    dest: /etc/systemd/system/redis.service
+  notify: restart redis
+
+- name: Start redis
+  systemd:
+    daemon_reload: true
+    name: redis
+    enabled: true
+    state: started
+
+- name: Add systemd file
+  copy:
+    src: redis-commander.service
+    dest: /etc/systemd/system/redis-commander.service
+  notify: restart redis-commander
+
+- name: Start redis-commander
+  systemd:
+    daemon_reload: true
+    name: redis-commander
+    enabled: true
+    state: started
+

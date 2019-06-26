@@ -1,0 +1,4 @@
+- hosts: short,data
+  gather_facts: yes
+  roles:
+    - redis
