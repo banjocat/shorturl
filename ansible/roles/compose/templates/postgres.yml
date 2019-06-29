@@ -1,0 +1,11 @@
+version: '3'
+services:
+  postgres:
+    network_mode: host
+    image: postgres:11
+    environment:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+    volumes:
+      - "./docker_data/pgdata:/var/lib/postgresql/data"

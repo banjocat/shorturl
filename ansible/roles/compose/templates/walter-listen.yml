@@ -1,0 +1,13 @@
+version: '3'
+services:
+  walter-api:
+    image: banjocat/walter:walter
+    network_mode: host
+    environment:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_HOST: "shortcurl.com"
+      DJANGO_DEBUG: "no"
+    command: python manage.py create_listener
+

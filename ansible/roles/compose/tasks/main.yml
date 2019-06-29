@@ -1,0 +1,14 @@
+- name: login into docker
+  docker_login:
+    username: "{{ lookup('env', 'DOCKER_USER') }}"
+    password: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
+
+- include_tasks: compose.yml
+  with_items: "{{ composes }}"
+  loop_control:
+    loop_var: compose
+
+- name: logout of docker
+  docker_login:
+    username: "{{ lookup('env', 'DOCKER_USER') }}"
+    state: absent

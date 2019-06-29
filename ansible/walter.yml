@@ -1,5 +1,19 @@
 - hosts: data
   gather_facts: yes
+  vars:
+    domain_email: jackmuratore@gmail.com
+    domains:
+      - shortcurl.com
+      - www.shortcurl.com
+    composes:
+      - name: walter-api
+        image: banjocat/walter:walter
+        tag: walter
   roles:
-    - walter
-    - geerlingguy.nginx
+    - role: tls
+      tags: tls
+    - role: geerlingguy.nginx
+      tags: nginx
+    - role: compose
+      tags: compose
+

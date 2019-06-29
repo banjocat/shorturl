@@ -1,0 +1,40 @@
+- name: Install certbot reqs
+  apt:
+    name: software-properties-common
+  tags: cert
+
+- name: Add universe repo
+  apt_repository:
+    repo: deb http://archive.ubuntu.com/ubuntu xenial universe
+  tags: cert
+
+- name: Add certbot repo
+  apt_repository:
+    repo: ppa:certbot/certbot
+  tags: cert
+
+- name: Install certbot
+  apt:
+    name: python-certbot-nginx
+  tags: cert
+
+- name: Create certs
+  shell: certbot --nginx certonly -m {{ domain_email }} -n --agree-tos --domain {{ item }}
+  tags: cert
+  with_items: "{{ domains }}"
+
+- name: create cron directory
+  file:
+    dest: /var/log/cron
+    state: directory
+  tags: cert
+
+- name: cron to renew
+  cron:
+    name: certbot renew
+    minute: 0
+    hour: 0
+    day: 1,15
+    month: "1-12"
+    job: /usr/bin/certbot renew >> /var/log/cron/certbot.log
+  tags: cert

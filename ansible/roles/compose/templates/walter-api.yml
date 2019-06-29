@@ -1,0 +1,14 @@
+version: '3'
+services:
+  walter-api:
+    image: banjocat/walter:walter
+    network_mode: host
+    environment:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_HOST: "127.0.0.1"
+      DJANGO_DEBUG: "no"
+    command: gunicorn walter.wsgi
+
+

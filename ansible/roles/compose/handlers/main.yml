@@ -1,0 +1,23 @@
+- name: restart walter-api
+  systemd:
+    name: walter-api
+    state: restarted
+
+- name: restart walter-sync
+  debug:
+    msg: "No restarting this"
+
+- name: restart walter-listen
+  systemd:
+    name: walter-listen
+    state: restarted
+
+- name: restart wesley
+  systemd:
+    name: wesley
+    state: restarted
+
+- name: restart postgres
+  systemd:
+    name: postgres
+    state: restarted

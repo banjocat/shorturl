@@ -1,4 +1,9 @@
 - hosts: data
   gather_facts: yes
+  vars:
+    composes:
+      - name: postgres
+        image: postgres
+        tag: 11
   roles:
-    - postgres
+    - compose

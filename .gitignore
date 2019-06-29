@@ -1,9 +1,6 @@
 docker_data
 *.pyc
 *.retry
-*.idea*
-*node_modules*
-tmp
-wesley.zip
-walter.zip
+.idea
+node_modules
 

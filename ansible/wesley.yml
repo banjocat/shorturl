@@ -1,0 +1,26 @@
+- hosts: short
+  gather_facts: yes
+  vars:
+    domain_email: jackmuratore@gmail.com
+    domains:
+      - brief.pw
+    composes:
+      - name: walter-listen
+        image: banjocat/walter
+        tag: walter
+      - name: walter-sync
+        image: banjocat/walter
+        tag: walter
+      - name: wesley
+        image: banjocat/walter
+        tag: wesley
+  roles:
+    - role: geerlingguy.nginx
+      tags: nginx
+    - role: tls
+      tags: tls
+    - role: redis
+      tags: redis
+    - role: compose
+      tags: compose
+

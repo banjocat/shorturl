@@ -1,0 +1,39 @@
+
+- name: Create /opt
+  file:
+    dest: /opt/{{ compose.name }}
+    state: directory
+
+- name: Create /var/log
+  file:
+    dest: /var/log/{{ compose.name }}
+    state: directory
+
+- name: Add compose
+  template:
+    src: "{{ compose.name }}.yml"
+    dest: /opt/{{ compose.name }}/docker-compose.yml
+  notify: restart {{ compose.name }}
+
+- name: Pull walter
+  docker_image:
+    name: "{{ compose.image }}"
+    tag: "{{ compose.tag }}"
+    source: pull
+    force_source: true
+  notify: restart {{ compose.name }}
+
+- include_tasks: migrate.yml
+  when: compose.name == "walter-api"
+
+- name: Add systemd service
+  template:
+    src: systemd.service
+    dest: /etc/systemd/system/{{ compose.name }}.service
+  notify: restart {{ compose.name }}
+
+- name: Start service
+  systemd:
+    name: "{{ compose.name }}"
+    daemon_reload: true
+    state: started
