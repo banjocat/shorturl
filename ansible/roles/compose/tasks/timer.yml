@@ -1,0 +1,14 @@
+- name: Add {{ timer.name }} timer
+  template:
+    src: timer.service
+    dest: /etc/systemd/system/{{ timer.name }}.timer
+  tags: timer
+
+- name: refresh systemd
+  systemd:
+    name: "{{ timer.name}}.timer"
+    daemon_reload: true
+    enabled: true
+    state: started
+  tags: timer
+

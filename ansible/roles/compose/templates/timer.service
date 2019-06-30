@@ -1,0 +1,9 @@
+[Unit]
+Description=Run {{ timer.name }} every {{ timer.period }}
+Requires={{ timer.name }}.service
+[Timer]
+Unit={{ timer.name }}.service
+OnUnitInactiveSec={{ timer.period }}
+AccuracySec=1s
+[Install]
+WantedBy=timers.target

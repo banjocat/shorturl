@@ -1,3 +1,21 @@
+
+composes:
+  - name: walter-listen
+    image: banjocat/walter
+    tag: walter
+  - name: walter-sync
+    image: banjocat/walter
+    tag: walter
+  - name: wesley
+    image: banjocat/walter
+    tag: wesley
+
+timers:
+  - name: walter-sync
+    period: 5m
+
+
+
 nginx_vhosts:
   - listen: "80"
     server_name: default

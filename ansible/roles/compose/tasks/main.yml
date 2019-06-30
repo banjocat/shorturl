@@ -8,6 +8,12 @@
   loop_control:
     loop_var: compose
 
+- include_tasks: timer.yml
+  with_items: "{{ timers }}"
+  loop_control:
+    loop_var: timer
+  tags: timer
+
 - name: logout of docker
   docker_login:
     username: "{{ lookup('env', 'DOCKER_USER') }}"
