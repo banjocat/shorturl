@@ -1,6 +1,11 @@
 var http = require("http");
 var redis = require("redis");
 
+if (process.env.SENTRY_DSN) {
+    var Raven = require('raven');
+    Raven.config(process.env.SENTRY_DSN).install();
+}
+
 client = redis.createClient();
 
 client.on('connect', function() {

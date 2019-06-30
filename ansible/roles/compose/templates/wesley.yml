@@ -5,4 +5,5 @@ services:
     network_mode: host
     environment:
       NODE_PORT: 8002
+      SENTRY_DSN: "{{ wesley_sentry_dsn }}"
     command: node app.js

@@ -9,6 +9,7 @@ services:
       POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_HOST: "127.0.0.1"
       DJANGO_DEBUG: "no"
+      SENTRY_DSN: "{{ walter_api_sentry_dsn }}"
     command: gunicorn walter.wsgi
 
 

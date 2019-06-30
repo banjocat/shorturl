@@ -9,5 +9,6 @@ services:
       POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_HOST: "shortcurl.com"
       DJANGO_DEBUG: "no"
+      SENTRY_DSN: "{{ walter_sync_sentry_dsn }}"
     command: python manage.py full_short_sync
 
