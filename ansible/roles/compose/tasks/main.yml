@@ -23,3 +23,9 @@
   docker_login:
     username: "{{ lookup('env', 'DOCKER_USER') }}"
     state: absent
+
+- name: Add logrotate
+  copy:
+    src: logrotate/shortcurl
+    dest: /etc/logrotate.d/shortcurl
+  tags: logrotate

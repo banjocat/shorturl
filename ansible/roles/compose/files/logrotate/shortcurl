@@ -1,4 +1,4 @@
-/var/log/apps/*.log {
+/var/log/shortcurl/*.log {
     rotate 7
     daily
     copytruncate
