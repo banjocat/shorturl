@@ -6,4 +6,6 @@
         image: postgres
         tag: 11
   roles:
-    - compose
+    - role: compose
+      tags: compose
+

@@ -1,3 +1,8 @@
+- name: Make log dir
+  file:
+    path: /var/log/shortcurl
+    state: directory
+
 - name: login into docker
   docker_login:
     username: "{{ lookup('env', 'DOCKER_USER') }}"

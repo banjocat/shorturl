@@ -4,11 +4,6 @@
     dest: /opt/{{ compose.name }}
     state: directory
 
-- name: Create /var/log
-  file:
-    dest: /var/log/{{ compose.name }}
-    state: directory
-
 - name: Add compose
   template:
     src: "{{ compose.name }}.yml"

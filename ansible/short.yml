@@ -1,0 +1,16 @@
+- hosts: short
+  gather_facts: yes
+  vars:
+    domain_email: jackmuratore@gmail.com
+    domains:
+      - brief.pw
+  roles:
+    - role: geerlingguy.nginx
+      tags: nginx
+    - role: tls
+      tags: tls
+    - role: redis
+      tags: redis
+    - role: compose
+      tags: compose
+

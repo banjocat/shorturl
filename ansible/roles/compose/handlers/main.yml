@@ -4,8 +4,9 @@
     state: restarted
 
 - name: restart walter-sync
-  debug:
-    msg: "No restarting this"
+  systemd:
+    name: walter-sync
+    state: restarted
 
 - name: restart walter-listen
   systemd:

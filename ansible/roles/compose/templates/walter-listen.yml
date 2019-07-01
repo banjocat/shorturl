@@ -1,6 +1,6 @@
 version: '3'
 services:
-  walter-api:
+  walter-listen:
     image: banjocat/walter:walter
     network_mode: host
     environment:
