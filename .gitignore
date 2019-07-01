@@ -3,4 +3,3 @@ docker_data
 *.retry
 .idea
 node_modules
-
