@@ -73,6 +73,14 @@ resource "digitalocean_firewall" "data" {
             "short"
         ]
     }
+
+    inbound_rule {
+        protocol = "tcp"
+        port_range = "5432"
+        source_tags = [
+            "jack"
+        ]
+    }
 }
 
 resource "ns1_record" "data-master" {

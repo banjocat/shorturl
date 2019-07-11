@@ -1,0 +1,12 @@
+version: '3'
+services:
+  zabbix-agent:
+    image: zabbix/zabbix-agent:ubuntu-4.0-latest
+    network_mode: host
+    environment:
+      ZBX_HOSTNAME: "{{ ansible_hostname }}"
+      ZBX_SERVER_HOST: "{{ zabbix_server_host }}"
+      ZBX_PASSIVE_ALLOW: "false"
+      ZBX_ACTIVE_ALLOW: "true"
+
+

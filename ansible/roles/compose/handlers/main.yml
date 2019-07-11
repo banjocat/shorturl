@@ -27,3 +27,13 @@
   systemd:
     name: jackmuratore
     state: restarted
+
+- name: restart zabbix-server
+  systemd:
+    name: zabbix-server
+    state: restarted
+
+- name: restart zabbix-agent
+  systemd:
+    name: zabbix-agent
+    state: restarted

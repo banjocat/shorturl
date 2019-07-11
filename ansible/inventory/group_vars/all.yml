@@ -1,6 +1,8 @@
 postgres_user: walter
 postgres_db: walter
 
+zabbix_server_host: monitor.jackmuratore.com
+
 
 
 # NGINX
