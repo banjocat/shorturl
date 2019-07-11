@@ -1,0 +1,28 @@
+version: '2'
+services:
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql
+    environment:
+      POSTGRES_USER: "zabbix"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DB: "zabbix"
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql
+    environment:
+      POSTGRES_USER: "zabbix"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DB: "zabbix"
+    ports:
+      - 8080:80
+      - 8443:443
+  postgres-server:
+    image: postgres:11
+    environment:
+      POSTGRES_USER: "zabbix"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DB: "zabbix"
+    volumes:
+      - "/var/lib/postgres:/var/lib/postgresql/data"
+
+
+

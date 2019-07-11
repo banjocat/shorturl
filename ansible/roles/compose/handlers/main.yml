@@ -22,3 +22,8 @@
   systemd:
     name: postgres
     state: restarted
+
+- name: restart jackmuratore
+  systemd:
+    name: jackmuratore
+    state: restarted

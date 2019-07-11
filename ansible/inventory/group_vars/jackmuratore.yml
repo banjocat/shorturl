@@ -1,0 +1,48 @@
+composes:
+  - name: jackmuratore
+    #- name: zabbix-server
+
+nginx_vhosts:
+  - listen: "80"
+    server_name: default
+    extra_parameters: |
+      location / {
+        return 404;
+      }
+
+  - listen: "80"
+    server_name: jackmuratore.com
+    filename: "redirect.jackmuratore.com"
+    extra_parameters: |
+      server_name _;
+      return 301 https://$host$request_uri;
+
+  - listen: "80"
+    server_name: www.jackmuratore.com
+    filename: "redirect.www.jackmuratore.com"
+    extra_parameters: |
+      server_name _;
+      return 301 https://$host$request_uri;
+
+  - listen: "443 ssl"
+    server_name: "www.jackmuratore.com"
+    extra_parameters: |
+      ssl_certificate /etc/letsencrypt/live/www.jackmuratore.com/cert.pem;
+      ssl_certificate_key /etc/letsencrypt/live/www.jackmuratore.com/privkey.pem;
+      location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      }
+
+  - listen: "443 ssl"
+    server_name: "jackmuratore.com"
+    extra_parameters: |
+      ssl_certificate /etc/letsencrypt/live/jackmuratore.com/cert.pem;
+      ssl_certificate_key /etc/letsencrypt/live/jackmuratore.com/privkey.pem;
+      location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      }
+

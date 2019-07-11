@@ -1,13 +1,11 @@
-- hosts: data
+- hosts: jackmuratore
   vars:
     domain_email: jackmuratore@gmail.com
     domains:
-      - shortcurl.com
-      - www.shortcurl.com
-    composes:
-      - name: walter-api
-        image: banjocat/walter:walter
-        tag: walter
+      - jackmuratore.com
+      - www.jackmuratore.com
+      - monitor.jackmuratore.com
+      - grafana.jackmuratore.com
   roles:
     - role: tls
       tags: tls

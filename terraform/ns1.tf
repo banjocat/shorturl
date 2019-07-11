@@ -13,3 +13,8 @@ resource "ns1_zone" "brief" {
     zone = "brief.pw"
     ttl = 600
 }
+
+resource "ns1_zone" "jackmuratore" {
+    zone = "jackmuratore.com"
+    ttl = 600
+}

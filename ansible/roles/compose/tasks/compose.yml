@@ -10,12 +10,10 @@
     dest: /opt/{{ compose.name }}/docker-compose.yml
   notify: restart {{ compose.name }}
 
-- name: Pull walter
-  docker_image:
-    name: "{{ compose.image }}"
-    tag: "{{ compose.tag }}"
-    source: pull
-    force_source: true
+- name: Pull compose
+  shell: docker-compose pull
+  args:
+    chdir: /opt/{{ compose.name }}
   notify: restart {{ compose.name }}
 
 - include_tasks: migrate.yml
