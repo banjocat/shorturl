@@ -1,2 +1,3 @@
 timers: []
 composes: []
+#service: "all" Commented out so you don't accidently run this when you don't want to

@@ -1,0 +1,19 @@
+- name: Delete /opt/{{ compose.name }}
+  file:
+    dest: /opt/{{ compose.name }}
+    state: absent
+
+- name: Create /etc/{{ compose.name }}
+  file:
+    dest: /etc/{{ compose.name }}
+    state: directory
+
+- name: Create /var/log/{{ compose.name }}
+  file:
+    dest: /var/log/{{ compose.name }}
+    state: directory
+
+- name: Add logroate
+  template:
+    src: logrotate/logrotate
+    dest: /etc/logrotate.d/{{ compose.name }}

@@ -1,7 +1,7 @@
 - name: Make log dir
   file:
     path: /var/log/shortcurl
-    state: directory
+    state: absent
 
 - name: login into docker
   docker_login:
@@ -12,6 +12,7 @@
   with_items: "{{ composes }}"
   loop_control:
     loop_var: compose
+  when: service == 'all' or service == compose.name
 
 - include_tasks: timer.yml
   with_items: "{{ timers }}"
@@ -24,8 +25,8 @@
     username: "{{ lookup('env', 'DOCKER_USER') }}"
     state: absent
 
-- name: Add logrotate
-  copy:
-    src: logrotate/shortcurl
+- name: Delete old logrotate
+  file:
     dest: /etc/logrotate.d/shortcurl
+    state: absent
   tags: logrotate

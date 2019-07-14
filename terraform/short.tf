@@ -15,12 +15,6 @@ resource "digitalocean_droplet" "ny_short" {
     ]
 }
 
-resource "digitalocean_floating_ip" "ny_short" {
-    droplet_id = "${element(digitalocean_droplet.ny_short.*.id, count.index)}"
-    region = "${digitalocean_droplet.ny_short.region}"
-    count = "${var.ny_short_count}"
-}
-
 
 resource "digitalocean_firewall" "short" {
     name = "short"
@@ -70,6 +64,21 @@ resource "digitalocean_firewall" "short" {
         port_range = "22"
         source_addresses = ["0.0.0.0/0", "::/0"]
     }
+
+    #zabbix
+    inbound_rule {
+        protocol = "tcp"
+        port_range = "10050"
+        source_tags = [
+            "jack"
+        ]
+    }
+    # Mosh
+    inbound_rule {
+        protocol = "udp"
+        port_range = "60000-61000"
+        source_addresses = ["0.0.0.0/0", "::/0"]
+    }
 }
 
 
@@ -77,7 +86,8 @@ resource "ns1_record" "ny_short" {
     zone = "${ns1_zone.brief.zone}"
     domain = "${ns1_zone.brief.zone}"
     type = "A"
+    ttl = 60
     answers {
-        answer = "${digitalocean_floating_ip.ny_short.0.ip_address}"
+        answer = "${digitalocean_droplet.ny_short.0.ipv4_address}"
     }
 }

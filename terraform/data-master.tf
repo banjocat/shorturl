@@ -13,10 +13,6 @@ resource "digitalocean_droplet" "data" {
     ]
 }
 
-resource "digitalocean_floating_ip" "data" {
-    droplet_id = "${digitalocean_droplet.data.id}"
-    region = "${digitalocean_droplet.data.region}"
-}
 
 resource "digitalocean_firewall" "data" {
     name = "data"
@@ -70,17 +66,28 @@ resource "digitalocean_firewall" "data" {
         protocol = "tcp"
         port_range = "5432"
         source_tags = [
-            "short"
+            "short",
+            "jack"
         ]
     }
 
+    # zabbix
     inbound_rule {
         protocol = "tcp"
-        port_range = "5432"
+        port_range = "10050-10051"
         source_tags = [
             "jack"
         ]
     }
+
+    # Mosh
+    inbound_rule {
+        protocol = "udp"
+        port_range = "60000-61000"
+        source_addresses = ["0.0.0.0/0", "::/0"]
+    }
+
+
 }
 
 resource "ns1_record" "data-master" {
@@ -88,7 +95,7 @@ resource "ns1_record" "data-master" {
     domain = "${ns1_zone.shortcurl.zone}"
     type = "A"
     answers {
-        answer = "${digitalocean_floating_ip.data.0.ip_address}"
+        answer = "${digitalocean_droplet.data.0.ipv4_address}"
     }
 }
 
@@ -96,8 +103,9 @@ resource "ns1_record" "data01-data-master" {
     zone = "${ns1_zone.shortcurl.zone}"
     domain = "data01.${ns1_zone.shortcurl.zone}"
     type = "A"
+    ttl = 60
     answers {
-        answer = "${digitalocean_floating_ip.data.0.ip_address}"
+        answer = "${digitalocean_droplet.data.0.ipv4_address}"
     }
 }
 
@@ -105,6 +113,7 @@ resource "ns1_record" "www-data-master" {
     zone = "${ns1_zone.shortcurl.zone}"
     domain = "www.${ns1_zone.shortcurl.zone}"
     type = "CNAME"
+    ttl = 60
     answers {
         answer = "${ns1_zone.shortcurl.zone}"
     }

@@ -11,10 +11,10 @@ resource "ns1_zone" "shortcurl" {
 
 resource "ns1_zone" "brief" {
     zone = "brief.pw"
-    ttl = 600
+    ttl = 60
 }
 
 resource "ns1_zone" "jackmuratore" {
     zone = "jackmuratore.com"
-    ttl = 600
+    ttl = 60
 }

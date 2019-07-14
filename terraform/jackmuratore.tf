@@ -18,13 +18,6 @@ resource "digitalocean_droplet" "jackmuratore" {
     ]
 }
 
-resource "digitalocean_floating_ip" "jackmuratore" {
-    droplet_id = "${element(digitalocean_droplet.jackmuratore.*.id, count.index)}"
-    region = "${digitalocean_droplet.jackmuratore.region}"
-    count = "${var.ny_jack_count}"
-}
-
-
 resource "digitalocean_firewall" "jack" {
     name = "jack"
 
@@ -76,12 +69,18 @@ resource "digitalocean_firewall" "jack" {
 
     inbound_rule {
         protocol = "tcp"
-        port_range = "10051"
+        port_range = "10050-10051"
         source_tags = [
             "short",
             "data",
             "jack"
         ]
+    }
+    # Mosh
+    inbound_rule {
+        protocol = "udp"
+        port_range = "60000-61000"
+        source_addresses = ["0.0.0.0/0", "::/0"]
     }
 }
 
@@ -90,14 +89,16 @@ resource "ns1_record" "jackmuratore" {
     zone = "${ns1_zone.jackmuratore.zone}"
     domain = "${ns1_zone.jackmuratore.zone}"
     type = "A"
+    ttl = 60
     answers {
-        answer = "${digitalocean_floating_ip.jackmuratore.0.ip_address}"
+        answer = "${digitalocean_droplet.jackmuratore.0.ipv4_address}"
     }
 }
 resource "ns1_record" "jackmuratore_cname" {
     zone = "${ns1_zone.jackmuratore.zone}"
     domain = "*.${ns1_zone.jackmuratore.zone}"
     type = "CNAME"
+    ttl = 60
     answers {
         answer = "${ns1_zone.jackmuratore.zone}"
     }

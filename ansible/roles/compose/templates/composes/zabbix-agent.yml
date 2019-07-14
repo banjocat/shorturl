@@ -3,10 +3,11 @@ services:
   zabbix-agent:
     image: zabbix/zabbix-agent:ubuntu-4.0-latest
     network_mode: host
+    privileged: true
     environment:
       ZBX_HOSTNAME: "{{ ansible_hostname }}"
       ZBX_SERVER_HOST: "{{ zabbix_server_host }}"
-      ZBX_PASSIVE_ALLOW: "false"
-      ZBX_ACTIVE_ALLOW: "true"
+      ZBX_LISTENIP: "{{ ansible_default_ipv4.address }}"
+
 
 

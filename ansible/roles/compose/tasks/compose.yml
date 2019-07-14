@@ -1,32 +1,29 @@
+- include_tasks: setup.yml
 
-- name: Create /opt
-  file:
-    dest: /opt/{{ compose.name }}
-    state: directory
-
-- name: Add compose
+- name: Add compose {{ compose.name }}
   template:
-    src: "{{ compose.name }}.yml"
-    dest: /opt/{{ compose.name }}/docker-compose.yml
+    src: "composes/{{ compose.name }}.yml"
+    dest: /etc/{{ compose.name }}/docker-compose.yml
   notify: restart {{ compose.name }}
 
-- name: Pull compose
+- name: Pull compose {{ compose.name }}
   shell: docker-compose pull
   args:
-    chdir: /opt/{{ compose.name }}
+    chdir: /etc/{{ compose.name }}
   notify: restart {{ compose.name }}
 
 - include_tasks: migrate.yml
   when: compose.name == "walter-api"
 
-- name: Add systemd service
+- name: Add systemd service {{ compose.name }}
   template:
-    src: systemd.service
+    src: systemd/systemd.service
     dest: /etc/systemd/system/{{ compose.name }}.service
   notify: restart {{ compose.name }}
 
-- name: Start service
+- name: Start service {{ compose.name }}
   systemd:
     name: "{{ compose.name }}"
+    enabled: true
     daemon_reload: true
     state: started

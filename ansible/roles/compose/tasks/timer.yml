@@ -1,6 +1,6 @@
 - name: Add {{ timer.name }} timer
   template:
-    src: timer.service
+    src: systemd/timer.service
     dest: /etc/systemd/system/{{ timer.name }}.timer
   tags: timer
 

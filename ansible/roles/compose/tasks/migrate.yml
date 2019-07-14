@@ -1,7 +1,7 @@
 - name: make migrations and migrate
   shell: /usr/local/bin/docker-compose -p migrate run walter-api python manage.py {{ item }}
   args:
-    chdir: /opt/walter-api
+    chdir: /etc/walter-api
   with_items:
     - makemigrations
     - migrate
