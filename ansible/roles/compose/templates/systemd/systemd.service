@@ -9,3 +9,6 @@ WorkingDirectory=/etc/{{ compose.name }}
 ExecStart=/bin/bash -c "/usr/local/bin/docker-compose up --exit-code-from {{ compose.name }} --no-color >> /var/log/{{ compose.name }}/{{ compose.name }}.log 2>&1"
 Restart=on-failure
 RestartSec=2s
+
+[Install]
+WantedBy=multi-user.target

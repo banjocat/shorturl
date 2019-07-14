@@ -8,4 +8,4 @@ services:
       POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_DB: "{{ postgres_db }}"
     volumes:
-      - "./docker_data/pgdata:/var/lib/postgresql/data"
+      - "/var/lib/postgres:/var/lib/postgresql/data"

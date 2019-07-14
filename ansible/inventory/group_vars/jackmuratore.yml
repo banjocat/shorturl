@@ -1,9 +1,9 @@
 composes:
   - name: jackmuratore
   - name: zabbix-server
+  - name: zabbix-web
   - name: zabbix-agent
 
-zabbix_server_host: 127.0.0.1
 
 nginx_vhosts:
   - listen: "80"
@@ -11,6 +11,12 @@ nginx_vhosts:
     extra_parameters: |
       location / {
         return 404;
+      }
+      location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow 127.0.0.1;
+        deny all;
       }
 
   - listen: "80"

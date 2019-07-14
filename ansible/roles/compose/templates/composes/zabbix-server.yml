@@ -2,24 +2,10 @@ version: '3'
 services:
   zabbix-server:
     image: zabbix/zabbix-server-pgsql:ubuntu-4.0-latest
+    network_mode: host
     environment:
       ZBX_HOSTNAME: "{{ ansible_hostname }}"
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_DB: "zabbix"
       DB_SERVER_HOST: shortcurl.com
-    ports:
-      - 10051:10051
-  zabbix-web:
-    image: zabbix/zabbix-web-nginx-pgsql:ubuntu-4.0-latest
-    environment:
-      ZBX_HOSTNAME: "{{ ansible_hostname }}"
-      ZBX_SERVER_NAME: shortcurl
-      DB_SERVER_HOST: shortcurl.com
-      POSTGRES_USER: "walter"
-      POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_DB: "zabbix"
-    ports:
-      - 8080:80
-      - 8443:443
-

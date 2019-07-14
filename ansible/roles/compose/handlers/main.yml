@@ -37,3 +37,8 @@
   systemd:
     name: zabbix-agent
     state: restarted
+
+- name: restart zabbix-web
+  systemd:
+    name: zabbix-web
+    state: restarted

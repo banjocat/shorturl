@@ -1,7 +1,6 @@
-- hosts: data
-  gather_facts: yes
+- hosts: all
   vars:
+    service: zabbix-agent
   roles:
     - role: compose
       tags: compose
-

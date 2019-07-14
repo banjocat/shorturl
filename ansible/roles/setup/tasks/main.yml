@@ -1,4 +1,4 @@
-- name: Instal stuf
+- name: Install base components
   apt:
     name:
       - nmap
@@ -6,6 +6,8 @@
       - python3-pip
       - mosh
       - htop
+      - ksh
+      - sudo
 
 - name: install docker pip
   pip:

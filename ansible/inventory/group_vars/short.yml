@@ -9,6 +9,7 @@ composes:
   - name: wesley
     image: banjocat/walter
     tag: wesley
+  - name: zabbix-agent
 
 timers:
   - name: walter-sync
@@ -22,6 +23,12 @@ nginx_vhosts:
     extra_parameters: |
       location / {
         return 404;
+      }
+      location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow 127.0.0.1;
+        deny all;
       }
 
   - listen: "80"
