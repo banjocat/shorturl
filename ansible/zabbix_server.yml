@@ -13,4 +13,6 @@
       tags: nginx
     - role: compose
       tags: compose
+    - role: zabbix_server
+      tags: server
 

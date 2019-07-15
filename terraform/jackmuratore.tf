@@ -76,6 +76,13 @@ resource "digitalocean_firewall" "jack" {
             "jack"
         ]
     }
+
+    inbound_rule {
+        protocol = "tcp"
+        port_range = "10050-10051"
+        source_addresses = ["142.93.202.135"]
+    }
+
     # Mosh
     inbound_rule {
         protocol = "udp"

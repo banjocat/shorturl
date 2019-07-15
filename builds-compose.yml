@@ -1,0 +1,14 @@
+version: '3'
+services:
+  walter:
+    image: banjocat/walter:walter
+    build: ./walter/.
+  wesley:
+    image: banjocat/walter:wesley
+    build: ./wesley/.
+  zabbix-agent:
+    image: banjocat/zabbix-agent:latest
+    build: ./zabbix-agent/.
+  zabbix-server:
+    image: banjocat/zabbix-server:latest
+    build: ./zabbix-server/.

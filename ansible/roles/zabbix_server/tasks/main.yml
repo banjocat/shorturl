@@ -1,0 +1,16 @@
+- name: Create dest directories
+  file:
+    dest: /usr/lib/{{ item }}
+    state: directory
+    mode: 0755
+  with_items:
+    - zabbix
+    - zabbix/alertscripts
+
+- name: Add scripts
+  copy:
+    src: scripts/{{ item }}
+    dest: /usr/lib/zabbix/alertscripts/{{ item }}
+    mode: 0755
+  with_items:
+    - slack.sh

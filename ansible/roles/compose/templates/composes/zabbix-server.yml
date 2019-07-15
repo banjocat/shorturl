@@ -1,8 +1,11 @@
 version: '3'
 services:
   zabbix-server:
-    image: zabbix/zabbix-server-pgsql:ubuntu-4.0-latest
+    image: banjocat/zabbix-server:latest
     network_mode: host
+    volumes:
+      - /var/lib/zabbix:/var/lib/zabbix
+      - /usr/lib/zabbix:/usr/lib/zabbix
     environment:
       ZBX_HOSTNAME: "{{ ansible_hostname }}"
       POSTGRES_USER: "{{ postgres_user }}"

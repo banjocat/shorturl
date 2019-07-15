@@ -1,6 +1,6 @@
 build:
-	docker-compose -f services-compose.yml build
+	docker-compose -f builds-compose.yml build
 
 push: build
-	docker-compose -f services-compose.yml push
+	docker-compose -f builds-compose.yml push
 

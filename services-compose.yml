@@ -1,8 +1,0 @@
-version: '3'
-services:
-  walter:
-    image: banjocat/walter:walter
-    build: ./walter/.
-  wesley:
-    image: banjocat/walter:wesley
-    build: ./wesley/.
