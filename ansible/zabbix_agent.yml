@@ -1,8 +1,3 @@
 - hosts: all
-  vars:
-    service: zabbix-agent
-    composes:
-      - name: zabbix-agent
   roles:
-    - role: compose
-      tags: compose
+    - zabbix_agent

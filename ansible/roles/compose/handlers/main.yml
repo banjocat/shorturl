@@ -33,11 +33,6 @@
     name: zabbix-server
     state: restarted
 
-- name: restart zabbix-agent
-  systemd:
-    name: zabbix-agent
-    state: restarted
-
 - name: restart zabbix-web
   systemd:
     name: zabbix-web

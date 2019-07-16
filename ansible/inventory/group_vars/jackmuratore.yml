@@ -2,7 +2,6 @@ composes:
   - name: jackmuratore
   - name: zabbix-server
   - name: zabbix-web
-  - name: zabbix-agent
 
 
 nginx_vhosts:

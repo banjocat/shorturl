@@ -9,7 +9,6 @@ composes:
   - name: wesley
     image: banjocat/walter
     tag: wesley
-  - name: zabbix-agent
 
 timers:
   - name: walter-sync

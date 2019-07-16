@@ -8,7 +8,6 @@
       - name: walter-api
         image: banjocat/walter:walter
         tag: walter
-      - name: zabbix-agent
   roles:
     - role: tls
       tags: tls

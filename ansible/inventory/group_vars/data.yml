@@ -1,6 +1,5 @@
 composes:
   - name: postgres
-  - name: zabbix-agent
 
 nginx_vhosts:
   - listen: "80"
