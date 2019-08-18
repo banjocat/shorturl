@@ -22,6 +22,12 @@
     dest: /etc/zabbix/zabbix_agentd.conf
   notify: restart zabbix agent
 
+- name: Add zabbix to sudo group
+  user:
+    name: zabbix
+    group: sudo
+  notify: restart zabbix agent
+
 - name: Zabbix agent started
   systemd:
     name: zabbix-agent
