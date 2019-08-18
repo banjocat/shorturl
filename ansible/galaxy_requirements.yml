@@ -2,3 +2,6 @@
 
 - src: geerlingguy.nginx
 
+- src: git@github.com:banjocat/banjocat_ansible.git
+  scm: git
+

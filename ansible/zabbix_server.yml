@@ -7,12 +7,12 @@
       - monitor.jackmuratore.com
       - grafana.jackmuratore.com
   roles:
-    - role: tls
+    - role: banjocat_ansible/certbot_nginx
       tags: tls
     - role: geerlingguy.nginx
       tags: nginx
     - role: compose
       tags: compose
-    - role: zabbix_server
+    - role: banjocat_ansible/zabbix_server
       tags: server
 

@@ -7,7 +7,7 @@
   roles:
     - role: geerlingguy.nginx
       tags: nginx
-    - role: tls
+    - role: banjocat_ansible/certbot_nginx
       tags: tls
     - role: redis
       tags: redis

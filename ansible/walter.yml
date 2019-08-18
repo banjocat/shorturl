@@ -9,7 +9,7 @@
         image: banjocat/walter:walter
         tag: walter
   roles:
-    - role: tls
+    - role: banjocat_ansible/certbot_nginx
       tags: tls
     - role: geerlingguy.nginx
       tags: nginx
