@@ -4,4 +4,5 @@
 
 - src: git@github.com:banjocat/banjocat_ansible.git
   scm: git
+  version: master
 
