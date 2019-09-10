@@ -1,6 +1,6 @@
 shorturl
 =========
-shorturl is a url shortner built with
+https://shortcurl.com is a url shortner built with
 
 * django 
 * nodejs
@@ -19,6 +19,6 @@ walter is the django api. It also has 2 management commands
 
 wesley
 =======
-wesley is the redirector in nodejs. It reads from redis
+wesley is the redirector in nodejs. It reads from redis.
 
 
