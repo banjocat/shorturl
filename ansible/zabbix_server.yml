@@ -1,4 +1,4 @@
-- hosts: jackmuratore
+- hosts: jack
   vars:
     domain_email: jackmuratore@gmail.com
     domains:
@@ -13,6 +13,4 @@
       tags: nginx
     - role: compose
       tags: compose
-    - role: banjocat_ansible/zabbix_server
-      tags: server
 

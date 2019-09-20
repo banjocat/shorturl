@@ -1,7 +1,5 @@
 composes:
   - name: jackmuratore
-  - name: zabbix-server
-  - name: zabbix-web
 
 
 nginx_vhosts:
