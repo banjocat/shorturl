@@ -7,7 +7,7 @@ cryptography==2.7
 docker-py==1.10.6
 docker-pycreds==0.4.0
 idna==2.8
-Jinja2==2.10.1
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 pycparser==2.19
 PyYAML==5.1.1
