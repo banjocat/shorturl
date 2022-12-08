@@ -1,4 +1,4 @@
-certifi==2019.6.16
+certifi==2022.12.7
 dateparser==0.7.1
 Django==2.2.2
 django-debug-toolbar==1.11
